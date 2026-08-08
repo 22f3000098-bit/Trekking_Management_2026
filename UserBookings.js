@@ -61,7 +61,7 @@ const UserBookings = {
                     </td>
                     <td><small>{{ b.location }}</small></td>
                     <td>
-                      <span v-if="b.difficulty" :class="'badge badge-difficulty-' + b.difficulty.toLowerCase()">
+                      <span v-if="b.difficulty" :class="'tma-badge badge-' + b.difficulty.toLowerCase()">
                         {{ b.difficulty }}
                       </span>
                     </td>
@@ -70,7 +70,7 @@ const UserBookings = {
                     </td>
                     <td><small>{{ b.booking_date?.slice(0,10) }}</small></td>
                     <td>
-                      <span :class="'badge badge-booking-' + b.status.toLowerCase()">{{ b.status }}</span>
+                      <span :class="'tma-badge badge-' + b.status.toLowerCase()">{{ b.status }}</span>
                     </td>
                     <td>
                       <small>{{ b.payment_status }}</small>
