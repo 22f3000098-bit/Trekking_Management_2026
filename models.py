@@ -105,6 +105,11 @@ class Booking(db.Model):
     created_at          = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at          = db.Column(db.DateTime, onupdate=datetime.utcnow)
 
+    __table_args__ = (
+    db.Index('uq_active_booking_per_user_trek', 'user_id', 'trek_id',
+             unique=True, sqlite_where=db.text("status = 'Booked'")),
+)
+    
     trekker = db.relationship('User', foreign_keys=[user_id],
                               backref=backref('bookings', lazy='dynamic'))
 
