@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TMA — Trekking Management Application</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <div id="app">
+    <nav-bar v-if="isLoggedIn"></nav-bar>
+    <router-view></router-view>
+  </div>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Vue 3 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.prod.js"></script>
+  <!-- Vue Router 4 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue-router@4.3.0/dist/vue-router.global.prod.js"></script>
+  <!-- Chart.js 4 (analytics) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <!-- Helpers -->
+  <script src="{{ url_for('static', filename='js/store.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+
+  <!-- Auth Views -->
+  <script src="{{ url_for('static', filename='js/views/LoginView.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/views/RegisterView.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/views/AboutView.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/views/CareersView.js') }}"></script>
+
+  <!-- Admin Views -->
+  <script src="{{ url_for('static', filename='js/views/admin/AdminDashboard.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/views/admin/AdminTreks.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/views/admin/AdminStaff.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/views/admin/AdminUsers.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/views/admin/AdminBookings.js') }}"></script>
+
+  <!-- Staff Views -->
+  <script src="{{ url_for('static', filename='js/views/staff/StaffDashboard.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/views/staff/StaffAddTrek.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/views/staff/StaffTrekDetail.js') }}"></script>
+
+  <!-- User Views -->
+  <script src="{{ url_for('static', filename='js/views/user/UserDashboard.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/views/user/UserTreks.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/views/user/UserTrekDetail.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/views/user/PaymentPage.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/views/user/UserBookings.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/views/user/UserProfile.js') }}"></script>
+
+  <!-- Main App (must be last) -->
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
