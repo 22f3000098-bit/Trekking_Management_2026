@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask_login import UserMixin
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import backref
 from extensions import db
 
@@ -68,7 +69,6 @@ class Trek(db.Model):
     location          = db.Column(db.String(200), nullable=False)
     description       = db.Column(db.Text)
     difficulty        = db.Column(db.String(20),  nullable=False)
-    duration          = db.Column(db.Integer,     nullable=False)
     total_slots       = db.Column(db.Integer,     nullable=False)
     available_slots   = db.Column(db.Integer,     nullable=False)
     price             = db.Column(db.Float,       default=0.0)
@@ -82,6 +82,19 @@ class Trek(db.Model):
     created_by        = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     created_at        = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at        = db.Column(db.DateTime, onupdate=datetime.utcnow)
+
+    @hybrid_property
+    def duration(self):
+        if not self.start_date or not self.end_date:
+            return None
+        return (self.end_date - self.start_date).days + 1
+
+    @duration.expression
+    def duration(cls):
+        return db.cast(
+            db.func.julianday(cls.end_date) - db.func.julianday(cls.start_date) + 1,
+            db.Integer,
+        )
 
     bookings = db.relationship('Booking', backref='trek', lazy='dynamic')
     creator  = db.relationship('User', foreign_keys=[created_by],
@@ -104,6 +117,11 @@ class Booking(db.Model):
     cancellation_reason = db.Column(db.Text)
     created_at          = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at          = db.Column(db.DateTime, onupdate=datetime.utcnow)
+
+    __table_args__ = (
+        db.Index('uq_active_booking_per_user_trek', 'user_id', 'trek_id',
+                 unique=True, sqlite_where=db.text("status = 'Booked'")),
+    )
 
     trekker = db.relationship('User', foreign_keys=[user_id],
                               backref=backref('bookings', lazy='dynamic'))
