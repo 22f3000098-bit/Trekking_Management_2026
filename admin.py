@@ -118,7 +118,7 @@ def create_trek():
     data    = request.get_json() or {}
     user_id = int(get_jwt_identity())
 
-    for field in ['trek_name', 'location', 'difficulty', 'duration', 'total_slots', 'start_date', 'end_date']:
+    for field in ['trek_name', 'location', 'difficulty', 'total_slots', 'start_date', 'end_date']:
         if not data.get(field):
             return err(f'{field} is required')
 
@@ -135,7 +135,7 @@ def create_trek():
     trek = Trek(
         trek_name=data['trek_name'], location=data['location'],
         description=data.get('description', ''),
-        difficulty=data['difficulty'], duration=int(data['duration']),
+        difficulty=data['difficulty'],
         total_slots=total_slots, available_slots=total_slots,
         price=float(data.get('price', 0.0)),
         altitude_meters=data.get('altitude_meters'),
@@ -172,7 +172,7 @@ def update_trek(trek_id):
     data    = request.get_json() or {}
     user_id = int(get_jwt_identity())
 
-    for field in ['trek_name', 'location', 'description', 'difficulty', 'duration',
+    for field in ['trek_name', 'location', 'description', 'difficulty',
                   'price', 'altitude_meters', 'meeting_point', 'requirement']:
         if field in data:
             setattr(trek, field, data[field])
@@ -181,6 +181,9 @@ def update_trek(trek_id):
         trek.start_date = datetime.strptime(data['start_date'], '%Y-%m-%d').date()
     if 'end_date' in data:
         trek.end_date = datetime.strptime(data['end_date'], '%Y-%m-%d').date()
+
+    if trek.end_date <= trek.start_date:
+        return err('End date must be after start date')
 
     if 'total_slots' in data:
         booked      = Booking.query.filter_by(trek_id=trek_id, status='Booked').count()
