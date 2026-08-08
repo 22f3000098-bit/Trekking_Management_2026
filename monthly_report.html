@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Monthly Activity Report</title></head>
+<body style="margin:0;padding:0;background:#f4f4f4;font-family:Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:30px 0;">
+    <tr><td align="center">
+      <table width="640" cellpadding="0" cellspacing="0" style="background:white;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.1);">
+
+        <!-- Header -->
+        <tr>
+          <td style="background:linear-gradient(135deg,#1a3a5c,#2a5298);padding:35px 40px;text-align:center;">
+            <h1 style="color:white;margin:0;font-size:26px;">📊 Monthly Activity Report</h1>
+            <p style="color:rgba(255,255,255,.85);margin:10px 0 0 0;font-size:16px;">{{ month }}</p>
+          </td>
+        </tr>
+
+        <!-- Stats Grid -->
+        <tr>
+          <td style="padding:35px 40px 20px;">
+            <h3 style="color:#333;margin:0 0 20px 0;font-size:16px;text-transform:uppercase;letter-spacing:.5px;">Summary</h3>
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td width="25%" style="padding:5px;">
+                  <div style="background:#d4edda;border-radius:10px;padding:20px;text-align:center;">
+                    <div style="font-size:32px;font-weight:bold;color:#1a6b3c;">{{ treks_conducted }}</div>
+                    <div style="font-size:12px;color:#555;margin-top:5px;">Treks Completed</div>
+                  </div>
+                </td>
+                <td width="25%" style="padding:5px;">
+                  <div style="background:#cce5ff;border-radius:10px;padding:20px;text-align:center;">
+                    <div style="font-size:32px;font-weight:bold;color:#1a3a5c;">{{ users_participated }}</div>
+                    <div style="font-size:12px;color:#555;margin-top:5px;">Participants</div>
+                  </div>
+                </td>
+                <td width="25%" style="padding:5px;">
+                  <div style="background:#fff3cd;border-radius:10px;padding:20px;text-align:center;">
+                    <div style="font-size:32px;font-weight:bold;color:#856404;">{{ total_bookings }}</div>
+                    <div style="font-size:12px;color:#555;margin-top:5px;">Total Bookings</div>
+                  </div>
+                </td>
+                <td width="25%" style="padding:5px;">
+                  <div style="background:#f8d7da;border-radius:10px;padding:20px;text-align:center;">
+                    <div style="font-size:32px;font-weight:bold;color:#721c24;">{{ new_users }}</div>
+                    <div style="font-size:12px;color:#555;margin-top:5px;">New Trekkers</div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Popular Treks -->
+        {% if popular_treks %}
+        <tr>
+          <td style="padding:10px 40px 35px;">
+            <h3 style="color:#333;margin:0 0 15px 0;font-size:16px;text-transform:uppercase;letter-spacing:.5px;">🏆 Popular Treks</h3>
+            <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e0e0e0;border-radius:8px;overflow:hidden;">
+              <tr style="background:#f8f9fa;">
+                <th style="padding:12px 15px;text-align:left;font-size:13px;color:#666;">#</th>
+                <th style="padding:12px 15px;text-align:left;font-size:13px;color:#666;">Trek Name</th>
+                <th style="padding:12px 15px;text-align:left;font-size:13px;color:#666;">Location</th>
+                <th style="padding:12px 15px;text-align:center;font-size:13px;color:#666;">Bookings</th>
+              </tr>
+              {% for trek in popular_treks %}
+              <tr style="{% if loop.index % 2 == 0 %}background:#fafafa{% endif %}">
+                <td style="padding:12px 15px;color:#888;border-top:1px solid #eee;">{{ loop.index }}</td>
+                <td style="padding:12px 15px;font-weight:bold;border-top:1px solid #eee;">{{ trek.name }}</td>
+                <td style="padding:12px 15px;color:#555;border-top:1px solid #eee;">{{ trek.location }}</td>
+                <td style="padding:12px 15px;text-align:center;border-top:1px solid #eee;">
+                  <span style="background:#1a3a5c;color:white;padding:3px 10px;border-radius:20px;font-size:13px;">{{ trek.bookings }}</span>
+                </td>
+              </tr>
+              {% endfor %}
+            </table>
+          </td>
+        </tr>
+        {% endif %}
+
+        <!-- Footer -->
+        <tr>
+          <td style="background:#333;padding:20px 40px;text-align:center;">
+            <p style="color:#999;font-size:12px;margin:0;">
+              Auto-generated monthly report — TMA Trekking Management Application
+            </p>
+          </td>
+        </tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>

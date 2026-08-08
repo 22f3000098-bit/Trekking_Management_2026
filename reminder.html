@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Trek Reminder</title></head>
+<body style="margin:0;padding:0;background:#f4f4f4;font-family:Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:30px 0;">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="background:white;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.1);">
+
+        <!-- Header -->
+        <tr>
+          <td style="background:linear-gradient(135deg,#1a6b3c,#2d9e5f);padding:35px 40px;text-align:center;">
+            <h1 style="color:white;margin:0;font-size:28px;">⛰️ Trek Reminder</h1>
+            <p style="color:rgba(255,255,255,.85);margin:8px 0 0 0;font-size:14px;">Trekking Management Application</p>
+          </td>
+        </tr>
+
+        <!-- Body -->
+        <tr>
+          <td style="padding:35px 40px;">
+            <p style="font-size:16px;color:#333;">Hi <strong>{{ user.username }}</strong>,</p>
+
+            {% if days_left == 0 %}
+            <div style="background:#fff3cd;border-left:4px solid #ffc107;padding:15px 20px;border-radius:6px;margin:20px 0;">
+              <strong style="color:#856404;">🚀 Your trek starts TODAY!</strong>
+            </div>
+            {% elif days_left == 1 %}
+            <div style="background:#d1ecf1;border-left:4px solid #17a2b8;padding:15px 20px;border-radius:6px;margin:20px 0;">
+              <strong style="color:#0c5460;">📅 Your trek starts TOMORROW!</strong>
+            </div>
+            {% else %}
+            <div style="background:#d4edda;border-left:4px solid #28a745;padding:15px 20px;border-radius:6px;margin:20px 0;">
+              <strong style="color:#155724;">📅 Your trek starts in {{ days_left }} days!</strong>
+            </div>
+            {% endif %}
+
+            <!-- Trek Details Table -->
+            <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e0e0e0;border-radius:8px;overflow:hidden;margin:25px 0;">
+              <tr style="background:#f8f9fa;">
+                <td colspan="2" style="padding:12px 20px;font-weight:bold;color:#555;font-size:13px;text-transform:uppercase;letter-spacing:.5px;">Trek Details</td>
+              </tr>
+              <tr><td style="padding:12px 20px;color:#777;width:160px;border-top:1px solid #eee;">Trek Name</td><td style="padding:12px 20px;font-weight:bold;border-top:1px solid #eee;">{{ trek.trek_name }}</td></tr>
+              <tr style="background:#fafafa;"><td style="padding:12px 20px;color:#777;">Location</td><td style="padding:12px 20px;">{{ trek.location }}</td></tr>
+              <tr><td style="padding:12px 20px;color:#777;">Start Date</td><td style="padding:12px 20px;color:#1a6b3c;font-weight:bold;">{{ trek.start_date.strftime('%B %d, %Y') }}</td></tr>
+              <tr style="background:#fafafa;"><td style="padding:12px 20px;color:#777;">Duration</td><td style="padding:12px 20px;">{{ trek.duration }} days</td></tr>
+              <tr><td style="padding:12px 20px;color:#777;">Difficulty</td><td style="padding:12px 20px;">{{ trek.difficulty }}</td></tr>
+              <tr style="background:#fafafa;"><td style="padding:12px 20px;color:#777;">Meeting Point</td><td style="padding:12px 20px;">{{ trek.meeting_point or 'To be announced' }}</td></tr>
+              <tr><td style="padding:12px 20px;color:#777;">Booking Ref</td><td style="padding:12px 20px;"><code style="background:#f8f9fa;padding:3px 8px;border-radius:4px;">{{ booking.booking_ref }}</code></td></tr>
+            </table>
+
+            {% if trek.requirement %}
+            <div style="background:#fff3cd;border:1px solid #ffc107;padding:15px 20px;border-radius:8px;margin:20px 0;">
+              <strong>📋 Requirements / Things to Carry:</strong><br>
+              <span style="color:#555;margin-top:5px;display:block;">{{ trek.requirement }}</span>
+            </div>
+            {% endif %}
+
+            <p style="color:#555;line-height:1.6;">Stay safe, be prepared, and have an amazing trek! 🌄<br>If you have any questions, contact your trek staff.</p>
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td style="background:#333;padding:20px 40px;text-align:center;">
+            <p style="color:#999;font-size:12px;margin:0;">© TMA — Trekking Management Application</p>
+          </td>
+        </tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>
