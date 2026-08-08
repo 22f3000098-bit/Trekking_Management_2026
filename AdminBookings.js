@@ -60,7 +60,7 @@ const AdminBookings = {
                       <small>{{ b.start_date }}<br>{{ b.end_date }}</small>
                     </td>
                     <td>
-                      <span :class="'badge badge-booking-' + b.status.toLowerCase()">{{ b.status }}</span>
+                      <span :class="'tma-badge badge-' + b.status.toLowerCase()">{{ b.status }}</span>
                     </td>
                     <td>
                       <span class="small">{{ b.payment_status }}</span>
