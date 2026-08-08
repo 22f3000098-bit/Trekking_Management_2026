@@ -79,7 +79,7 @@ def create_trek():
     data    = request.get_json() or {}
     user_id = int(get_jwt_identity())
 
-    for field in ['trek_name', 'location', 'difficulty', 'duration', 'total_slots', 'start_date', 'end_date']:
+    for field in ['trek_name', 'location', 'difficulty', 'total_slots', 'start_date', 'end_date']:
         if not data.get(field):
             return err(f'{field} is required')
 
@@ -94,9 +94,8 @@ def create_trek():
 
     try:
         total_slots = int(data['total_slots'])
-        duration    = int(data['duration'])
     except (TypeError, ValueError):
-        return err('Duration and total slots must be valid numbers')
+        return err('Total slots must be a valid number')
 
     if total_slots <= 0:
         return err('Total slots must be greater than zero')
@@ -104,7 +103,7 @@ def create_trek():
     trek = Trek(
         trek_name=data['trek_name'], location=data['location'],
         description=data.get('description', ''),
-        difficulty=data['difficulty'], duration=duration,
+        difficulty=data['difficulty'],
         total_slots=total_slots, available_slots=total_slots,
         price=float(data.get('price') or 0.0),
         altitude_meters=data.get('altitude_meters') or None,
